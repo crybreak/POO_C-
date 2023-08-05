@@ -1,4 +1,4 @@
-#include "./include/double_list.h"
+#include "double_list.h"
 #include <stdlib.h>
 #include <stdio.h>
 
