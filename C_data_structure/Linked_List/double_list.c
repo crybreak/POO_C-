@@ -7,13 +7,16 @@ unsigned int double_list_get_size(double_list_t list)
 {
     int count = 0;
 
+    if (list == NULL)
+        return 0;
+
     for (count = 0; list->next != NULL; count++) {list = list->next;}
     return (count + 1) ;
 }
 
 bool double_list_is_empty(double_list_t list)
 {
-    return (list->next = NULL) ? true : false;
+    return (list == NULL) ? true : false;
 }
 
 void double_list_dump(double_list_t list)
@@ -58,32 +61,34 @@ bool double_list_add_elem_at_back(double_list_t *front_ptr , double elem)
         return (true);
     }
 }
-
 bool double_list_del_elem_at_front(double_list_t *front_ptr)
 {
-    double_list head = front_ptr;
+    double_list_t head = *front_ptr;
 
-    if (front_ptr == NULL)
+    if (*front_ptr == NULL)
         return (false);
-    front_ptr = head->next;
-    free(front_ptr);
+    *front_ptr = head->next;
+    free(head);
     return (true);
 }
+
+
 bool double_list_del_elem_at_back(double_list_t *front_ptr)
 {
-    double_list head = front_ptr;
+    double_list_t head = *front_ptr;
+    double_list_t back_node = NULL;
 
-    if (front_ptr->next == NULL) {
-        double_list_add_elem_at_front()
+    if (*front_ptr == NULL)
+        return false;
+    for (int i = 0; head->next != NULL; i++) {
+        if (head->next->next == NULL)
+            back_node = head;
+        head = head->next;
     }
-
-    for (int count = 0; head->next- != NULL; count++) {head =  head->next;}
-
-
-
+    free(head);
+    back_node->next = NULL;
+    return true;
 }
-
-
 
 
 
@@ -98,10 +103,12 @@ static void populate_list(double_list_t *list_head)
     double_list_add_elem_at_back(list_head, 11.35);
     double_list_add_elem_at_front(list_head, 39.3);
     double_list_add_elem_at_front(list_head, 98.0);
+    double_list_del_elem_at_front(list_head);
+    double_list_del_elem_at_back(list_head);
 
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
     double_list_t head = NULL;
     populate_list(&head);
