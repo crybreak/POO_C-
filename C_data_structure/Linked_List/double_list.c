@@ -1,5 +1,6 @@
 #include "double_list.h"
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
 unsigned int double_list_get_size(double_list_t list)
@@ -7,7 +8,7 @@ unsigned int double_list_get_size(double_list_t list)
     int count = 0;
 
     for (count = 0; list->next != NULL; count++) {list = list->next;}
-    return (count + 1);
+    return (count + 1) ;
 }
 
 bool double_list_is_empty(double_list_t list)
@@ -58,26 +59,33 @@ bool double_list_add_elem_at_back(double_list_t *front_ptr , double elem)
     }
 }
 
-bool double_list_add_elem_at_position(double_list_t *front_ptr, double elem, unsigned int position)
+bool double_list_del_elem_at_front(double_list_t *front_ptr)
 {
-    double_list_t new_node = malloc(sizeof(double_list_t));
-    double_list_t list = *front_ptr;
-    double_list_t head = *front_ptr;
-    int count = 0;
+    double_list head = front_ptr;
 
-    if (new_node == NULL)
-        return false;
-    for (count = 0; list->next != NULL || (count < position - 1); count++)
-        list = list->next;
-    if (count < position - 1) { printf("%d", 5); return 0;}
-    else {
-        for (count = 0; count < position - 2 ; count++) { head = head->next;}
-        new_node->value = elem;
-        head->next = new_node;
-        new_node->next = head;
-    }
+    if (front_ptr == NULL)
+        return (false);
+    front_ptr = head->next;
+    free(front_ptr);
     return (true);
 }
+bool double_list_del_elem_at_back(double_list_t *front_ptr)
+{
+    double_list head = front_ptr;
+
+    if (front_ptr->next == NULL) {
+        double_list_add_elem_at_front()
+    }
+
+    for (int count = 0; head->next- != NULL; count++) {head =  head->next;}
+
+
+
+}
+
+
+
+
 
 static void populate_list(double_list_t *list_head)
 {
@@ -90,7 +98,6 @@ static void populate_list(double_list_t *list_head)
     double_list_add_elem_at_back(list_head, 11.35);
     double_list_add_elem_at_front(list_head, 39.3);
     double_list_add_elem_at_front(list_head, 98.0);
-    double_list_add_elem_at_position(list_head, 98.0, 2);
 
 }
 
