@@ -90,6 +90,16 @@ bool double_list_del_elem_at_back(double_list_t *front_ptr)
     return true;
 }
 
+double double_list_get_elem_at_front (double_list_t list)
+{
+    return (list != NULL) ? list->value : 0;
+}
+
+double double_list_get_elem_at_back (double_list_t list) {
+    double_list_t head = list;
+    for (int i = 0; head->next != NULL; i++) {head = head->next;}
+    return head->value;
+}
 
 
 static void populate_list(double_list_t *list_head)
